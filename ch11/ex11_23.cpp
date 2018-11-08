@@ -16,10 +16,25 @@ using std::string;
 
 int main()
 {
-    std::multimap<string, string> families;
-    for (string lastName, childName; std::cin >> childName >> lastName;
-         families.emplace(lastName, childName))
-        ;
-    for (const auto& s : families)
-        std::cout << s.second << " " << s.first << std::endl;
+    std::multimap<string, vector<string>> families;
+    
+    std::string lastName, chldName;
+    while ([&]() -> bool {
+        std::cout << "Please enter last name:\n";
+
+        return std::cin >> lastName && lastName != "@q";
+    }())
+    {
+        std::cout << "PLZ Enter children's name:\n";
+        vector <string> name;
+        while (std::cin >> chldName && chldName != "@q") {
+            //! add new items into the vector
+            name.push_back(chldName);           
+        }
+        families.emplace(lastName, name);
+    }
+    for (const auto& s : families){
+        for(const auto & n:s.second)
+            std::cout << n << ", ";
+        std::cout << s.first << std::endl;}
 }
